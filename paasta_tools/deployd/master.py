@@ -182,8 +182,7 @@ class DeployDaemon(PaastaThread):
         leader_counter = self.metrics.create_counter("leader_elections", paasta_cluster=self.config.get_cluster())
         leader_counter.count()
         QueueMetrics(
-            self.inbox, self.instances_that_need_to_be_bounced_asap,
-            self.config.get_cluster(), self.metrics,
+            inbox=self.inbox, cluster=self.config.get_cluster(), metrics_provider=self.metrics,
         ).start()
         self.inbox.start()
         self.log.info("Starting all watcher threads")
